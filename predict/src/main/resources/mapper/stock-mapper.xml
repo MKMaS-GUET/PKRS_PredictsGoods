@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.prks.predict.predict.dao.TbNewbeeMallStockMaterialsMapper">
+    <select id="getStockById" resultType="TbNewbeeMallStockMaterials">
+        select materials_id, materials_name, stock_num
+        from tb_newbee_mall_stock_materials
+        where materials_id = #{materialId}
+    </select>
+
+    <select id="getStockByName" resultType="TbNewbeeMallStockMaterials">
+        select materials_id, materials_name, stock_num
+        from tb_newbee_mall_stock_materials
+        where materials_name = #{materialName}
+    </select>
+
+    <update id="updateStockByName" >
+        update tb_newbee_mall_stock_materials set stock_num = #{newStock}
+        where materials_name = #{materialsName}
+    </update>
+
+    <insert id="addNewMetrial" parameterType="TbNewbeeMallStockMaterials">
+        insert into tb_newbee_mall_stock_materials (materials_id, materials_name, stock_num)
+        values (#{materialsId}, #{materialsName}, #{stockNum})
+    </insert>
+
+</mapper>

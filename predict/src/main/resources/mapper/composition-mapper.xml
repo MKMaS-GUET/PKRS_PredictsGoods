@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.prks.predict.predict.dao.TbNewbeeMallGoodsCompositionMapper">
+
+    <sql id = "selectFields">
+        goods_id, goods_name, is_formed, formed_time, components, goods_img
+    </sql>
+
+    <select id="selectAllComp" resultType="TbNewbeeMallGoodsComposition">
+        select <include refid="selectFields"></include>
+        from tb_newbee_mall_goods_composition
+    </select>
+
+    <select id="selectById" resultType="TbNewbeeMallGoodsComposition">
+        select <include refid="selectFields"></include>
+        from tb_newbee_mall_goods_composition
+        where goods_id = #{goodsId}
+    </select>
+
+    <select id="selectByName" resultType="TbNewbeeMallGoodsComposition">
+        select <include refid="selectFields"></include>
+        from tb_newbee_mall_goods_composition
+        where goods_name = #{goodsName}
+    </select>
+
+    <insert id="insertTbNewbeeMallGoodsComposition" parameterType="TbNewbeeMallGoodsComposition" keyProperty="goods_id">
+        insert  into tb_newbee_mall_goods_composition (<include refid="selectFields"></include>)
+        values (#{goodsId}, #{goodsName}, #{isFormed}, #{formedTime}, #{components}, #{goodsImg})
+    </insert>
+    
+    <update id="updateFormedTime">
+        update tb_newbee_mall_goods_composition set formed_time = #{formedTime}
+        where goods_id = #{goodsId}
+    </update>
+</mapper>

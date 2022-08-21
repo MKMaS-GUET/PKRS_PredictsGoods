@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.prks.predict.predict.dao.TbNewbeeMallOrderQueueMapper">
+
+    <insert id="insertOrder" parameterType="TbNewbeeMallOrderQueue" keyProperty="goods_id">
+        insert  into tb_newbee_mall_order_queue (order_id,order_formed_time,finished_time, que_num, order_status)
+        values (#{orderId}, #{orderFormedTime},  #{finishedTime}, #{queNum}, #{orderStatus})
+    </insert>
+
+    <select id="selectLastQueNum" resultType="TbNewbeeMallOrderQueue">
+        SELECT order_id,order_formed_time,finished_time, que_num
+        FROM  tb_newbee_mall_order_queue
+        ORDER BY que_num DESC LIMIT 1
+    </select>
+
+    <update id="updateFinishedTime">
+        update tb_newbee_mall_order_queue set finished_time = #{finishedTime} ,order_status = 1
+        where order_id = #{orderId}
+    </update>
+
+    <update id="updateStatus">
+        update tb_newbee_mall_order_queue set order_status = #{orderStatus}
+        where order_id = #{orderId}
+    </update>
+
+    <select id="selectQueueByOrderId" resultType="TbNewbeeMallOrderQueue">
+        select order_id,order_formed_time,finished_time, que_num, order_status
+        from  tb_newbee_mall_order_queue
+        where order_id = #{orderId}
+    </select>
+
+</mapper>
